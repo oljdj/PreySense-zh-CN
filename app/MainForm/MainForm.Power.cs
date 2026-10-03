@@ -123,7 +123,7 @@ namespace PreySense
 
         private void LoadPersistedFanState(RegistryKey key)
         {
-            labelBatteryStatusLimitTitle.Text = $"Battery Charge Limit: {sliderBatteryChargeLimit.Value}%";
+            labelBatteryStatusLimitTitle.Text = $"电池充电上限：{sliderBatteryChargeLimit.Value}%";
 
             int calibrated = GetRegistryInt(key, "Fan_Calibrated", 0);
             if (calibrated == 1)
@@ -179,11 +179,11 @@ namespace PreySense
             byte currentMode = 0x01;
             string modeName = mode switch
             {
-                0x00 => "Silent",
-                0x04 => "Performance",
-                0x05 => "Turbo",
-                0x06 => "Eco",
-                _ => "Balanced"
+                0x00 => "静音模式",
+                0x04 => "性能模式",
+                0x05 => "极速模式",
+                0x06 => "节能模式",
+                _ => "均衡模式"
             };
             try
             {
@@ -291,11 +291,11 @@ namespace PreySense
             HighlightPowerBtn(mode);
             string modeName = mode switch
             {
-                0x00 => "Silent",
-                0x04 => "Performance",
-                0x05 => "Turbo",
-                0x06 => "Eco",
-                _ => "Balanced"
+                0x00 => "静音模式",
+                0x04 => "性能模式",
+                0x05 => "极速模式",
+                0x06 => "节能模式",
+                _ => "均衡模式"
             };
             UpdatePerformanceModeLabel(modeName);
             fansForm?.SyncActiveMode(mode);
@@ -312,8 +312,8 @@ namespace PreySense
         private void UpdatePerformanceModeLabel(string modeName, bool batteryAutoEco = false)
         {
             labelPerformanceMode.Text = batteryAutoEco
-                ? $"Performance Mode: {modeName} (Battery)"
-                : $"Performance Mode: {modeName}";
+                ? $"性能模式：{modeName}（电池）"
+                : $"性能模式：{modeName}";
         }
 
         private void ToggleTurboMode()
@@ -373,7 +373,7 @@ namespace PreySense
                     powerMode = 0x06;
                     SaveState("PowerBattery", powerMode);
                     ApplyPowerMode(powerMode);
-                    UpdatePerformanceModeLabel("Eco", batteryAutoEco: true);
+                    UpdatePerformanceModeLabel("节能模式", batteryAutoEco: true);
                     return;
                 }
             }
@@ -429,10 +429,10 @@ namespace PreySense
 
             string labelText = mode switch
             {
-                0 => "GPU Mode: iGPU only",
-                1 => "GPU Mode: iGPU + dGPU",
-                2 => "GPU Mode: dGPU exclusive",
-                _ => "GPU Mode"
+                0 => "GPU 模式：仅核显",
+                1 => "GPU 模式：核显 + 独显",
+                2 => "GPU 模式：独显独占",
+                _ => "GPU 模式"
             };
             labelGpuMode.Text = labelText;
             labelGpuHint.Text = "";
@@ -479,8 +479,8 @@ namespace PreySense
             if (mode == 2)
             {
                 var result = ConfirmDialog.Show(this,
-                    "Switching to Ultimate Mode requires a restart.\nBefore restarting, save any open files and close all programs.",
-                    "Restart Required");
+                    "切换到独显直连需要重启。\n重启前请保存所有文件并关闭所有程序。",
+                    "需要重启");
                 if (result != DialogResult.Yes)
                 {
                     MarkGpuMode(oldMode);
@@ -520,8 +520,8 @@ namespace PreySense
             if (oldMode == 2)
             {
                 var result = ConfirmDialog.Show(this,
-                    "Switching out of Ultimate Mode requires a restart.\nBefore restarting, save any open files and close all programs.",
-                    "Restart Required");
+                    "退出独显直连需要重启。\n重启前请保存所有文件并关闭所有程序。",
+                    "需要重启");
                 if (result != DialogResult.Yes)
                 {
                     MarkGpuMode(2);

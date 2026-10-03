@@ -5,7 +5,7 @@ namespace PreySense.UI;
 
 public static class UiTheme
 {
-    public const string FontFamily = "Segoe UI";
+    public const string FontFamily = "Microsoft YaHei UI";
     public const int DialogPadding = 12;
     public const int CardGap = 10;
     public const int CardRadius = 4;

@@ -25,7 +25,7 @@ namespace PreySense.UI
         protected override void OnGotFocus(EventArgs e)
         {
             base.OnGotFocus(e);
-            Announce($"{AccessibleName}, slider, {Value}");
+            Announce($"{AccessibleName}，滑块，{Value}");
         }
 
         protected override void OnValueChanged(EventArgs e)

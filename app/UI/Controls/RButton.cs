@@ -59,7 +59,7 @@ namespace PreySense.UI
                 if (activated != value)
                     Invalidate();
                 activated = value;
-                AccessibleDescription = activated ? "Active" : null;
+                AccessibleDescription = activated ? "已激活" : null;
             }
         }
 

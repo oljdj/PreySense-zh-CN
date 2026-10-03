@@ -342,30 +342,30 @@ namespace PreySense.Overlay
                 string configKey = $"overlay_col_{i}";
                 string defaultVal = i switch
                 {
-                    1 => "Usage",
-                    2 => "Temperature",
-                    3 => "Voltage",
-                    4 => "Clock",
-                    5 => "Power",
-                    6 => "Memory",
-                    _ => "None"
+                    1 => "占用率",
+                    2 => "温度",
+                    3 => "电压",
+                    4 => "频率",
+                    5 => "功耗",
+                    6 => "内存",
+                    _ => "无"
                 };
                 string colType = AppConfig.GetString(configKey, defaultVal);
-                if (colType == "None") continue;
+                if (colType == "无") continue;
 
                 int defaultGraph = (i == 5) ? 1 : 0;
                 if (AppConfig.Get($"overlay_col_{i}_graph", defaultGraph) == 1)
                 {
                     switch (colType)
                     {
-                        case "Usage": trackUsage = true; break;
-                        case "Temperature": trackTemp = true; break;
-                        case "Clock": trackClock = true; break;
-                        case "Power": trackPower = true; break;
-                        case "Memory": trackMemory = true; break;
-                        case "Fan Speed": trackFan = true; break;
-                        case "Voltage": trackVoltage = true; break;
-                        case "Memory Speed": trackMemSpeed = true; break;
+                        case "占用率": trackUsage = true; break;
+                        case "温度": trackTemp = true; break;
+                        case "频率": trackClock = true; break;
+                        case "功耗": trackPower = true; break;
+                        case "内存": trackMemory = true; break;
+                        case "风扇转速": trackFan = true; break;
+                        case "电压": trackVoltage = true; break;
+                        case "内存频率": trackMemSpeed = true; break;
                     }
                 }
             }
@@ -486,27 +486,27 @@ namespace PreySense.Overlay
                 string configKey = $"overlay_col_{i}";
                 string defaultVal = i switch
                 {
-                    1 => "Usage",
-                    2 => "Temperature",
-                    3 => "Voltage",
-                    4 => "Clock",
-                    5 => "Power",
-                    6 => "Memory",
-                    _ => "None"
+                    1 => "占用率",
+                    2 => "温度",
+                    3 => "电压",
+                    4 => "频率",
+                    5 => "功耗",
+                    6 => "内存",
+                    _ => "无"
                 };
                 string colType = AppConfig.GetString(configKey, defaultVal);
-                if (colType == "None") continue;
+                if (colType == "无") continue;
 
                 int colW = colType switch
                 {
-                    "Usage" => S(sc, 22),
-                    "Temperature" => S(sc, 32),
-                    "Clock" => S(sc, 44),
-                    "Power" => S(sc, 38),
-                    "Memory" => S(sc, 32),
-                    "Fan Speed" => S(sc, 50),
-                    "Voltage" => S(sc, 38),
-                    "Memory Speed" => S(sc, 44),
+                    "占用率" => S(sc, 22),
+                    "温度" => S(sc, 32),
+                    "频率" => S(sc, 44),
+                    "功耗" => S(sc, 38),
+                    "内存" => S(sc, 32),
+                    "风扇转速" => S(sc, 50),
+                    "电压" => S(sc, 38),
+                    "内存频率" => S(sc, 44),
                     _ => 0
                 };
 
@@ -602,27 +602,27 @@ namespace PreySense.Overlay
                 string configKey = $"overlay_col_{i}";
                 string defaultVal = i switch
                 {
-                    1 => "Usage",
-                    2 => "Temperature",
-                    3 => "Voltage",
-                    4 => "Clock",
-                    5 => "Power",
-                    6 => "Memory",
-                    _ => "None"
+                    1 => "占用率",
+                    2 => "温度",
+                    3 => "电压",
+                    4 => "频率",
+                    5 => "功耗",
+                    6 => "内存",
+                    _ => "无"
                 };
                 string colType = AppConfig.GetString(configKey, defaultVal);
-                if (colType == "None") continue;
+                if (colType == "无") continue;
 
                 int colW = colType switch
                 {
-                    "Usage" => S(sc, 22),
-                    "Temperature" => S(sc, 32),
-                    "Clock" => S(sc, 44),
-                    "Power" => S(sc, 38),
-                    "Memory" => S(sc, 32),
-                    "Fan Speed" => S(sc, 50),
-                    "Voltage" => S(sc, 38),
-                    "Memory Speed" => S(sc, 44),
+                    "占用率" => S(sc, 22),
+                    "温度" => S(sc, 32),
+                    "频率" => S(sc, 44),
+                    "功耗" => S(sc, 38),
+                    "内存" => S(sc, 32),
+                    "风扇转速" => S(sc, 50),
+                    "电压" => S(sc, 38),
+                    "内存频率" => S(sc, 44),
                     _ => 0
                 };
 
@@ -777,7 +777,7 @@ namespace PreySense.Overlay
         {
             switch (type)
             {
-                case "Usage":
+                case "占用率":
                     {
                         string cpuText = (_cpuUsage ?? 0) + "%";
                         string gpuText = (_gpuUsage ?? 0) + "%";
@@ -785,7 +785,7 @@ namespace PreySense.Overlay
                         DrawTextWithUnit(g, font, unitFont, gpuText, _gpuBrush, new PointF(colX + colW, textY + lineH + lineGap), alignRight: true);
                     }
                     break;
-                case "Temperature":
+                case "温度":
                     {
                         string cpuText = FmtTemp(D(HardwareControl.cpuTemp));
                         string gpuText = FmtTemp(D(HardwareControl.gpuTemp));
@@ -793,7 +793,7 @@ namespace PreySense.Overlay
                         DrawTextWithUnit(g, font, unitFont, gpuText, _gpuBrush, new PointF(colX + colW, textY + lineH + lineGap), alignRight: true);
                     }
                     break;
-                case "Clock":
+                case "频率":
                     {
                         string cpuText = $"{(HardwareControl.cpuMhz ?? 0)}MHz";
                         string gpuText = $"{(HardwareControl.gpuMhz ?? 0)}MHz";
@@ -801,7 +801,7 @@ namespace PreySense.Overlay
                         DrawTextWithUnit(g, font, unitFont, gpuText, _gpuBrush, new PointF(colX + colW, textY + lineH + lineGap), alignRight: true);
                     }
                     break;
-                case "Power":
+                case "功耗":
                     {
                         string cpuText = FmtPow(D(HardwareControl.cpuPower));
                         string gpuText = FmtPow(D(HardwareControl.gpuPower));
@@ -809,13 +809,13 @@ namespace PreySense.Overlay
                         DrawTextWithUnit(g, font, unitFont, gpuText, _gpuBrush, new PointF(colX + colW, textY + lineH + lineGap), alignRight: true);
                     }
                     break;
-                case "Memory":
+                case "内存":
                     {
                         DrawMemGb(g, font, unitFont, (int)colX, (int)colW, textY, _ramUsedMb, _cpuBrush);
                         DrawMemGb(g, font, unitFont, (int)colX, (int)colW, textY + lineH + lineGap, _vramUsedMb, _gpuBrush);
                     }
                     break;
-                case "Fan Speed":
+                case "风扇转速":
                     {
                         string cpuText = FormatFan(HardwareControl.cpuFanRPM);
                         string gpuText = FormatFan(HardwareControl.gpuFanRPM);
@@ -823,7 +823,7 @@ namespace PreySense.Overlay
                         DrawFanSpeed(g, font, rpmFont, gpuText, _gpuBrush, colX, colW, textY + lineH + lineGap, sc);
                     }
                     break;
-                case "Voltage":
+                case "电压":
                     {
                         string cpuText = HardwareControl.cpuVoltage > 0 ? $"{HardwareControl.cpuVoltage.Value:F3}v" : "0.000v";
                         string gpuText = HardwareControl.gpuVoltage > 0 ? $"{HardwareControl.gpuVoltage.Value:F3}v" : "0.000v";
@@ -831,7 +831,7 @@ namespace PreySense.Overlay
                         DrawTextWithUnit(g, font, unitFont, gpuText, _gpuBrush, new PointF(colX + colW, textY + lineH + lineGap), alignRight: true);
                     }
                     break;
-                case "Memory Speed":
+                case "内存频率":
                     {
                         string cpuText = $"{(HardwareControl.ramSpeedMhz ?? 0)}MHz";
                         string gpuText = $"{(HardwareControl.vramSpeedMhz ?? 0)}MHz";
@@ -858,14 +858,14 @@ namespace PreySense.Overlay
         {
             return type switch
             {
-                "Usage" => (_cpuUsageHistory, _gpuUsageHistory),
-                "Temperature" => (_cpuTempHistory, _gpuTempHistory),
-                "Clock" => (_cpuClockHistory, _gpuClockHistory),
-                "Power" => (_cpuPowerHistory, _gpuPowerHistory),
-                "Memory" => (_ramHistory, _vramHistory),
-                "Fan Speed" => (_cpuFanHistory, _gpuFanHistory),
-                "Voltage" => (_cpuVoltageHistory, _gpuVoltageHistory),
-                "Memory Speed" => (_ramSpeedHistory, _vramSpeedHistory),
+                "占用率" => (_cpuUsageHistory, _gpuUsageHistory),
+                "温度" => (_cpuTempHistory, _gpuTempHistory),
+                "频率" => (_cpuClockHistory, _gpuClockHistory),
+                "功耗" => (_cpuPowerHistory, _gpuPowerHistory),
+                "内存" => (_ramHistory, _vramHistory),
+                "风扇转速" => (_cpuFanHistory, _gpuFanHistory),
+                "电压" => (_cpuVoltageHistory, _gpuVoltageHistory),
+                "内存频率" => (_ramSpeedHistory, _vramSpeedHistory),
                 _ => (new float[HistoryLength], new float[HistoryLength])
             };
         }

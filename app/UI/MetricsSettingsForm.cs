@@ -10,7 +10,7 @@ namespace PreySense.UI
     {
         private readonly PredatorDropDown[] _combos = new PredatorDropDown[8];
         private readonly RCheckBox[] _graphs = new RCheckBox[8];
-        private static readonly string[] MetricOptions = { "None", "Usage", "Temperature", "Clock", "Power", "Memory", "Fan Speed", "Voltage", "Memory Speed" };
+        private static readonly string[] MetricOptions = { "无", "占用率", "温度", "频率", "功耗", "内存", "风扇转速", "电压", "内存频率" };
 
         public MetricsSettingsForm()
         {
@@ -21,7 +21,7 @@ namespace PreySense.UI
             int height = (int)(350 * scale); // Fits 8 rows and header checkbox perfectly
 
             ClientSize = new Size(width, height);
-            UiTheme.ApplyFixedDialog(this, "Metrics Overlay Settings");
+            UiTheme.ApplyFixedDialog(this, "监控叠加层设置");
             ShowIcon = false;
 
             var builder = new UiBuilder(scale, width);
@@ -38,11 +38,11 @@ namespace PreySense.UI
                 new ColumnStyle(SizeType.Percent, 100F),
                 new ColumnStyle(SizeType.AutoSize));
 
-            var titleLabel = builder.Text("Overlay Settings", fontHeader, UiTheme.TextPrimary);
+            var titleLabel = builder.Text("叠加层设置", fontHeader, UiTheme.TextPrimary);
 
             var chkShowFps = new RCheckBox
             {
-                Text = "Show FPS",
+                Text = "显示 FPS",
                 Font = fontRegular,
                 ForeColor = foreMain,
                 BackColor = buttonSecond,
@@ -70,13 +70,13 @@ namespace PreySense.UI
                 // Get default setting matching screenshot
                 string defaultVal = colIdx switch
                 {
-                    0 => "Usage",
-                    1 => "Temperature",
-                    2 => "Voltage",
-                    3 => "Clock",
-                    4 => "Power",
-                    5 => "Memory",
-                    _ => "None"
+                    0 => "占用率",
+                    1 => "温度",
+                    2 => "电压",
+                    3 => "频率",
+                    4 => "功耗",
+                    5 => "内存",
+                    _ => "无"
                 };
                 string currentVal = PreySense.Overlay.AppConfig.GetString(configKey, defaultVal);
                 if (string.IsNullOrEmpty(currentVal)) currentVal = defaultVal;
@@ -85,7 +85,7 @@ namespace PreySense.UI
                 int defaultChecked = (colIdx == 4) ? 1 : 0;
                 var chkGraph = new RCheckBox
                 {
-                    Text = "Graph",
+                    Text = "图表",
                     Font = fontRegular,
                     ForeColor = foreMain,
                     BackColor = buttonSecond,
@@ -102,14 +102,14 @@ namespace PreySense.UI
 
                 _graphs[colIdx] = chkGraph;
 
-                var lbl = builder.Text($"Col {colIdx + 1}:", fontRegular, UiTheme.TextMuted);
+                var lbl = builder.Text($"第 {colIdx + 1} 列:", fontRegular, UiTheme.TextMuted);
                 var combo = builder.Combo((int)(120 * scale), fontRegular, 28);
                 combo.Items.AddRange(MetricOptions);
                 int selIdx = Array.IndexOf(MetricOptions, currentVal);
                 combo.SelectedIndex = selIdx >= 0 ? selIdx : 0;
                 
                 combo.SelectedIndexChanged += (s, e) => {
-                    string selected = combo.SelectedItem?.ToString() ?? "None";
+                    string selected = combo.SelectedItem?.ToString() ?? "无";
                     PreySense.Overlay.AppConfig.Set(configKey, selected);
                     Program.GetHardwareOverlay().RefreshDisplayFlags();
                 };

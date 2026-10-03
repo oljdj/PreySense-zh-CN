@@ -29,15 +29,15 @@ namespace PreySense
             buttonTurboFanMode.Secondary = false;
             buttonTurboFanModePower.Secondary = false;
 
-            buttonEcoMode.Text = "Silent";
-            buttonBalancedMode.Text = "Balanced";
-            buttonPerformanceMode.Text = "Performance";
-            buttonTurboFanMode.Text = "Turbo";
+            buttonEcoMode.Text = "静音模式";
+            buttonBalancedMode.Text = "均衡模式";
+            buttonPerformanceMode.Text = "性能模式";
+            buttonTurboFanMode.Text = "极速模式";
 
-            buttonEnduranceMode.Text = "Endurance";
-            buttonGpuStandardMode.Text = "Standard";
-            buttonGpuUltimateMode.Text = "Ultimate";
-            buttonTurboFanModePower.Text = "Fans + Power";
+            buttonEnduranceMode.Text = "核显模式";
+            buttonGpuStandardMode.Text = "标准模式";
+            buttonGpuUltimateMode.Text = "独显直连";
+            buttonTurboFanModePower.Text = "风扇与功耗";
 
             buttonEcoMode.BorderColor = SilentModeOutlineColor;
             buttonBalancedMode.BorderColor = colorStandard;
@@ -53,7 +53,7 @@ namespace PreySense
             buttonAutoRefreshRate.BorderColor = colorGray;
             buttonRgbLighting.BorderColor = colorGray;
 
-            buttonColorProfiles.Text = "Display";
+            buttonColorProfiles.Text = "显示";
             buttonColorProfiles.TabStop = false;
             buttonColorProfiles.Borderless = false;
             buttonColorProfiles.Secondary = true;
@@ -61,7 +61,7 @@ namespace PreySense
             buttonColorProfiles.ForeColor = foreMain;
             buttonColorProfiles.FlatAppearance.BorderColor = borderSecond;
             buttonColorProfiles.BorderColor = colorGray;
-            buttonColorProfiles.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            buttonColorProfiles.Font = new Font("Microsoft YaHei UI", 8F, FontStyle.Bold);
             buttonColorProfiles.TextAlign = ContentAlignment.MiddleCenter;
             buttonColorProfiles.Width = 80;
             buttonColorProfiles.Margin = new Padding(0, 4, 0, 4);
@@ -196,7 +196,7 @@ namespace PreySense
             {
                 using var client = new System.Net.Http.HttpClient();
                 client.DefaultRequestHeaders.UserAgent.ParseAdd("PreySense-Updater");
-                string json = await client.GetStringAsync("https://api.github.com/repos/hammadzaigham/PreySense/releases/latest");
+                string json = await client.GetStringAsync("https://api.github.com/repos/oljdj/PreySense-zh-CN/releases/latest");
                 using var doc = System.Text.Json.JsonDocument.Parse(json);
                 if (doc.RootElement.TryGetProperty("tag_name", out var tagProperty))
                 {
@@ -215,11 +215,11 @@ namespace PreySense
                                 {
                                     DialogResult result = Dialogs.ConfirmDialog.Show(
                                         this,
-                                        $"Version {latestTag} of Prey Sense is available.\n\n" +
-                                        "Would you like to open the GitHub repository to download it?",
-                                        "Prey Sense - Update Available",
-                                        "Download",
-                                        "Later");
+                                        $"Prey Sense 新版本 {latestTag} 已发布。\n\n" +
+                                        "是否打开 GitHub 仓库下载？",
+                                        "Prey Sense - 有可用更新",
+                                        "下载",
+                                        "稍后");
 
                                     if (result == DialogResult.Yes)
                                     {
@@ -227,7 +227,7 @@ namespace PreySense
                                         {
                                             Process.Start(new ProcessStartInfo
                                             {
-                                                FileName = "https://github.com/hammadzaigham/PreySense/releases",
+                                                FileName = "https://github.com/oljdj/PreySense-zh-CN/releases",
                                                 UseShellExecute = true
                                             });
                                         }
